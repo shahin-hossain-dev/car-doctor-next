@@ -1,13 +1,19 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 import { BsGithub } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
 
 const Signup = () => {
   const handleSignup = async (event) => {
     event.preventDefault();
+    const form = event.target;
+    const newUser = {
+      name: form.name.value,
+      email: form.email.value,
+      password: form.password.value,
+    };
+    console.log(newUser);
   };
   return (
     <div className="container mx-auto mt-12 md:px-24">
@@ -25,7 +31,7 @@ const Signup = () => {
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-6">
             Sign Up
           </h2>
-          <form className="space-y-3">
+          <form onSubmit={handleSignup} className="space-y-3">
             <div>
               <label htmlFor="name" className="font-semibold">
                 Full Name{" "}

@@ -14,13 +14,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" data-theme="carDoctorTheme">
-      <AuthProvider>
-        <body className={inter.className}>
+      <body className={inter.className}>
+        <AuthProvider>
           <Navbar />
           <div>{children}</div>
           <Footer />
-        </body>
-      </AuthProvider>
+        </AuthProvider>
+      </body>
     </html>
   );
 }
