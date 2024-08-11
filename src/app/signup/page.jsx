@@ -13,7 +13,20 @@ const Signup = () => {
       email: form.email.value,
       password: form.password.value,
     };
-    console.log(newUser);
+    // console.log(newUser);
+    // api request
+    const resp = await fetch("http://localhost:3000/signup/api", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(newUser),
+    });
+
+    console.log(resp);
+    if (resp.status === 200) {
+      event.target.reset();
+    }
   };
   return (
     <div className="container mx-auto mt-12 md:px-24">
