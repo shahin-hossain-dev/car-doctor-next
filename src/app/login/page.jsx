@@ -4,10 +4,22 @@ import React from "react";
 import { FcGoogle } from "react-icons/fc";
 import { BsGithub } from "react-icons/bs";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 const Login = () => {
   const handleLogin = async (event) => {
     event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    // console.log(email, password);
+    const resp = signIn("credentials", {
+      email,
+      password,
+      redirect: false,
+    });
+    console.log(resp);
   };
+
   return (
     <div className="container mx-auto mt-12 md:px-24">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 place-items-center">
@@ -24,7 +36,7 @@ const Login = () => {
           <h2 className="text-2xl md:text-3xl font-bold text-center mb-6">
             Login
           </h2>
-          <form className="space-y-4">
+          <form onSubmit={handleLogin} className="space-y-4">
             <div>
               <label htmlFor="email" className="font-semibold">
                 Email{" "}
