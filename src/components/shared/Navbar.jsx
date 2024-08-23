@@ -1,3 +1,5 @@
+"use client"; //navbar all time client component hobe
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -5,13 +7,8 @@ import { IoCartOutline } from "react-icons/io5";
 import { IoSearch } from "react-icons/io5";
 
 const Navbar = () => {
-  const navItems = [
-    { title: "Home", path: "/" },
-    { title: "About", path: "/about" },
-    { title: "Services", path: "/services" },
-    { title: "Blog", path: "/blog" },
-    { title: "Contact", path: "/contact" },
-  ];
+  const { data: session } = useSession();
+
   return (
     <div className="bg-base-100">
       <div className="navbar container mx-auto text-black">
@@ -46,10 +43,26 @@ const Navbar = () => {
             <IoSearch className="text-xl" />
           </div>
           <button className="btn btn-outline btn-primary">Appointment</button>
+          {session ? (
+            <button onClick={() => signOut()} className="btn btn-primary">
+              Logout
+            </button>
+          ) : (
+            <Link href={"/login"} className="btn btn-primary">
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </div>
   );
 };
 
+const navItems = [
+  { title: "Home", path: "/" },
+  { title: "About", path: "/about" },
+  { title: "Services", path: "/services" },
+  { title: "Blog", path: "/blog" },
+  { title: "Contact", path: "/contact" },
+];
 export default Navbar;

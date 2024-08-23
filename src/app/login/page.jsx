@@ -5,7 +5,9 @@ import { FcGoogle } from "react-icons/fc";
 import { BsGithub } from "react-icons/bs";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 const Login = () => {
+  const router = useRouter(); // for navigate /redirect another page
   const handleLogin = async (event) => {
     event.preventDefault();
     const form = event.target;
@@ -17,7 +19,9 @@ const Login = () => {
       password,
       redirect: false,
     });
-    console.log(resp);
+    if (resp.status === 200) {
+      router.push("/"); //navigate to home page
+    }
   };
 
   return (
