@@ -12,7 +12,7 @@ const Login = () => {
     const email = form.email.value;
     const password = form.password.value;
     // console.log(email, password);
-    const resp = signIn("credentials", {
+    const resp = await signIn("credentials", {
       email,
       password,
       redirect: false,
