@@ -1,13 +1,12 @@
 "use client";
 import Image from "next/image";
-import React from "react";
-import { FcGoogle } from "react-icons/fc";
-import { BsGithub } from "react-icons/bs";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import SocialSignIn from "@/components/shared/SocialSignIn";
 const Login = () => {
   const router = useRouter(); // for navigate /redirect another page
+
   const handleLogin = async (event) => {
     event.preventDefault();
     const form = event.target;
@@ -75,17 +74,8 @@ const Login = () => {
               />
             </div>
           </form>
-          <div className="space-y-5 mt-5">
-            <h4 className="text-center">Or Sign In with </h4>
-            <div className=" flex justify-center items-center gap-8">
-              <button className="text-3xl">
-                <FcGoogle />
-              </button>
-              <button className="text-3xl">
-                <BsGithub />
-              </button>
-            </div>
-          </div>
+          {/* social sign ing */}
+          <SocialSignIn />
           <p className="text-center mt-5">
             <small>
               Don&apos;t have an account?{" "}

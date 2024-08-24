@@ -7,8 +7,8 @@ import { IoCartOutline } from "react-icons/io5";
 import { IoSearch } from "react-icons/io5";
 
 const Navbar = () => {
-  const { data: session } = useSession();
-
+  const { data: session, status } = useSession();
+  console.log(status);
   return (
     <div className="bg-base-100">
       <div className="navbar container mx-auto text-black">
@@ -43,15 +43,32 @@ const Navbar = () => {
             <IoSearch className="text-xl" />
           </div>
           <button className="btn btn-outline btn-primary">Appointment</button>
-          {session ? (
-            <button onClick={() => signOut()} className="btn btn-primary">
-              Logout
-            </button>
-          ) : (
-            <Link href={"/login"} className="btn btn-primary">
-              Login
-            </Link>
-          )}
+          <div>
+            {session && (
+              <Image
+                src={session?.user?.image}
+                alt={session?.user?.name}
+                height={50}
+                width={50}
+              />
+            )}
+          </div>
+          <div>
+            {status === "loading" && (
+              <button className="btn btn-primary">Loading...</button>
+            )}
+
+            {status === "authenticated" && (
+              <button onClick={() => signOut()} className="btn btn-primary">
+                Logout
+              </button>
+            )}
+            {status === "unauthenticated" && (
+              <Link href={"/login"} className="btn btn-primary">
+                Login
+              </Link>
+            )}
+          </div>
         </div>
       </div>
     </div>
