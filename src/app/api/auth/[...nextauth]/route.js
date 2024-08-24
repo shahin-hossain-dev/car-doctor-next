@@ -53,6 +53,30 @@ const handler = NextAuth({
   pages: {
     signIn: "/login",
   },
+  callbacks: {
+    async signIn({ user, account }) {
+      // google/github user er info database e save kora jonno
+      if (account.provider === "google" || account.provider === "github") {
+        const { name, email, image } = user;
+        // console.log(user);
+        try {
+          const db = await connectDB();
+          const usersCollection = await db.collection("users");
+          const userExist = await usersCollection.findOne({ email });
+          if (!userExist) {
+            const resp = await usersCollection.insertOne(user);
+            return user;
+          } else {
+            return user;
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      } else {
+        return user;
+      }
+    },
+  },
 });
 
 export { handler as GET, handler as POST };
