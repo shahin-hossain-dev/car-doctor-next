@@ -6,9 +6,22 @@ import AuthProvider from "@/services/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
+// export const metadata = {
+//   // title: "Car Doctor Next",
+//   // description: "Car Repair Workshop",
+//   // dynamic metadata template
+//   title: {
+//     default: "Car Doctor",
+//     template: "%s | Car Doctor",
+//   },
+//   description: "Car Repairing Workshop",
+// };
 export const metadata = {
-  title: "Car Doctor Next",
-  description: "Car Repair Workshop",
+  title: {
+    default: "Car Doctor",
+    template: "%s | Car Doctor",
+  },
+  description: "Car Doctor Workshop",
 };
 
 export default function RootLayout({ children }) {
