@@ -1,8 +1,9 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 const ServiceCard = ({ service }) => {
-  const { title, img, price } = service;
+  const { title, img, price, _id } = service;
   return (
     <div className="card card-compact bg-base-100 w-96 shadow-xl p-5">
       <figure>
@@ -14,7 +15,9 @@ const ServiceCard = ({ service }) => {
           <p className="text-2xl font-semibold text-primary">
             Price: ${parseInt(price)}
           </p>
-          <button className="btn btn-primary">Buy Now</button>
+          <Link href={`/services/${_id}`} className="btn btn-primary">
+            View Details
+          </Link>
         </div>
       </div>
     </div>
