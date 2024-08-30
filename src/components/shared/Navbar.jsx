@@ -50,6 +50,7 @@ const Navbar = () => {
                 alt={session?.user?.name}
                 height={50}
                 width={50}
+                className="rounded-full"
               />
             )}
           </div>
