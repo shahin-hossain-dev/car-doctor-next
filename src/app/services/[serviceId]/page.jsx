@@ -1,5 +1,6 @@
 import { getServiceDetails } from "@/services/getServices";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
 // for heading title
@@ -10,7 +11,7 @@ export const metadata = {
 
 const ServiceDetails = async ({ params }) => {
   const { service } = await getServiceDetails(params.serviceId);
-  const { title, img, price, description, facility } = service;
+  const { _id, title, img, price, description, facility } = service;
 
   return (
     <div className=" w-10/12 mx-auto">
@@ -55,6 +56,9 @@ const ServiceDetails = async ({ params }) => {
           <h3 className="text-2xl font-bold mt-3 text-primary">
             Price: ${price}
           </h3>
+          <Link href={`/checkout/${_id}`}>
+            <button className="btn btn-primary w-full mt-3">Checkout</button>
+          </Link>
         </div>
       </div>
     </div>
