@@ -15,6 +15,7 @@ const ServiceDetails = async ({ params }) => {
 
   return (
     <div className=" w-10/12 mx-auto">
+      {/* banner */}
       <div className="relative">
         <div className="absolute h-[250px] w-full bg-gradient-to-r from-[#00000099] to-[#00000000]"></div>
         <h2 className="text-2xl font-bold text-white absolute top-1/2 -translate-y-1/2 ms-6">

@@ -82,5 +82,6 @@ const navItems = [
   { title: "Services", path: "/services" },
   { title: "Blog", path: "/blog" },
   { title: "Contact", path: "/contact" },
+  { title: "My Bookings", path: "/my-bookings" },
 ];
 export default Navbar;
