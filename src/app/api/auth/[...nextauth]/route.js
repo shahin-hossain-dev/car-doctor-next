@@ -7,6 +7,7 @@ import bcrypt from "bcrypt";
 
 const handler = NextAuth({
   // auth options
+  secret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET,
   // jwt session
   session: {
     strategy: "jwt",
