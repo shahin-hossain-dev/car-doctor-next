@@ -17,13 +17,25 @@ const MyBookings = () => {
     setBookings(data);
     setLoading(false);
   };
+  const handleDelete = async (serviceId) => {
+    const resp = await fetch(
+      `http://localhost:3000/my-bookings/api/delete-booking/${serviceId}`,
+      {
+        method: "DELETE",
+      }
+    );
+    const result = await resp.json();
+    if (result.response.deletedCount > 0) {
+      booking();
+    }
+  };
 
   useEffect(() => {
     booking();
   }, [session]);
 
   return (
-    <div className="w-10/12 mx-auto">
+    <div className="w-10/12 mx-auto mb-6">
       <div className="relative">
         <div className="absolute h-[250px] w-full bg-gradient-to-r from-[#00000099] to-[#00000000]"></div>
         <h2 className="text-2xl font-bold text-white absolute top-1/2 -translate-y-1/2 ms-6">
@@ -44,9 +56,9 @@ const MyBookings = () => {
           {loading ? (
             <div className="text-center mt-3">Loading...</div>
           ) : (
-            <table className="table">
+            <table className="table border mt-6 rounded-t-lg ">
               {/* head */}
-              <thead>
+              <thead className="bg-gradient-to-t from-base-300 to-base-50 ">
                 <tr>
                   <th>Id</th>
                   <th>Service Name</th>
@@ -59,7 +71,7 @@ const MyBookings = () => {
                 {/* booking row */}
 
                 {bookings?.map(({ _id, serviceTitle, price, date }, idx) => (
-                  <tr key={_id} className="bg-base-200">
+                  <tr key={_id} className="bg-base-200 border-b-gray-400">
                     <th>{idx + 1}</th>
                     <td>{serviceTitle}</td>
                     <td>${price}</td>
@@ -69,7 +81,10 @@ const MyBookings = () => {
                         <button className="btn btn-warning btn-sm ">
                           Edit
                         </button>
-                        <button className="btn btn-error btn-sm ">
+                        <button
+                          onClick={() => handleDelete(_id)}
+                          className="btn btn-error btn-sm "
+                        >
                           Delete
                         </button>
                       </div>
