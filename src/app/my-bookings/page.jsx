@@ -2,6 +2,8 @@
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const MyBookings = () => {
   const [loading, setLoading] = useState(true);
@@ -26,6 +28,7 @@ const MyBookings = () => {
     );
     const result = await resp.json();
     if (result.response.deletedCount > 0) {
+      toast.success("booking deleted");
       booking();
     }
   };
@@ -96,6 +99,7 @@ const MyBookings = () => {
           )}
         </div>
       </div>
+      <ToastContainer />
     </div>
   );
 };

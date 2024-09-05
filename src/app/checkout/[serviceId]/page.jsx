@@ -4,6 +4,8 @@ import { useSession } from "next-auth/react";
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Checkout = ({ params }) => {
   const [service, setService] = useState({});
@@ -30,7 +32,7 @@ const Checkout = ({ params }) => {
       price: price,
       serviceTitle: title,
     };
-    console.log(newBooking);
+
     const resp = await fetch("http://localhost:3000/checkout/api/new-booking", {
       method: "POST",
       headers: {
@@ -38,7 +40,10 @@ const Checkout = ({ params }) => {
       },
       body: JSON.stringify(newBooking),
     });
-    console.log(resp);
+    const result = await resp.json();
+    if (result.response.insertedId) {
+      toast.success("booking successful");
+    }
   };
 
   return (
@@ -108,6 +113,7 @@ const Checkout = ({ params }) => {
           />
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 };

@@ -6,7 +6,11 @@ export const POST = async (request) => {
   const bookingsCollection = await db.collection("bookings");
   try {
     const resp = await bookingsCollection.insertOne(booking);
-    return Response.json({ message: "Booking added successfully" });
+    console.log(resp);
+    return Response.json({
+      message: "Booking added successfully",
+      status: 200,
+    });
   } catch (error) {
     console.log(error);
   }

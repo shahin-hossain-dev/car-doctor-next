@@ -7,10 +7,10 @@ export const POST = async (request) => {
 
   try {
     const resp = await bookingCollection.insertOne(newBooking);
-    return Response.json(
-      { message: "new booking added successfully" },
-      { status: 200 }
-    );
+    return Response.json({
+      message: "new booking added successfully",
+      response: resp,
+    });
   } catch (error) {
     return Response.json({ message: "Something went wrong" }, { status: 400 });
   }
