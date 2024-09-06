@@ -6,6 +6,8 @@ const connectBooking = async () => {
   return await db.collection("bookings");
 };
 
+// delete booking id wise data
+
 export const DELETE = async (request, { params }) => {
   const bookingCollection = await connectBooking();
   try {
@@ -18,22 +20,36 @@ export const DELETE = async (request, { params }) => {
   }
 };
 
-// export const PATCH = async (request, { params }) => {
-//   const bookingCollection = await connectBooking();
-//   const serviceId = await params.serviceId;
+// update booking id wise data
 
-//   const filter = { _id: new ObjectId(serviceId) };
-//   const updateDoc = request.json();
-//   const option = { upsert: true };
+export const PATCH = async (request, { params }) => {
+  const bookingCollection = await connectBooking();
+  const serviceId = await params.serviceId;
 
-//   try {
-//     const resp = await bookingCollection.updateOne(filter, updateDoc, option);
-//     return Response.json({ message: "updated successfully", response: resp });
-//   } catch (error) {
-//     return Response.json({ message: "Something went wrong" });
-//   }
-// };
+  const { date, phone, address } = await request.json();
 
+  // filter with id
+  const filter = { _id: new ObjectId(serviceId) };
+
+  // updated key-value in mongoDB $set Operator
+  const updateDoc = {
+    $set: {
+      date,
+      phone,
+      address,
+    },
+  };
+  // for update or insert option true
+  const option = { upsert: true };
+  try {
+    const resp = await bookingCollection.updateOne(filter, updateDoc, option);
+    return Response.json({ message: "updated successfully", response: resp });
+  } catch (error) {
+    return Response.json({ message: "Something went wrong" });
+  }
+};
+
+// get booking id wise data
 export const GET = async (request, { params }) => {
   const serviceId = await params.serviceId;
   const bookingCollection = await connectBooking();
