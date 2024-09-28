@@ -1,15 +1,21 @@
 "use client";
 import { signIn, useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { BsGithub } from "react-icons/bs";
 import { FcGoogle } from "react-icons/fc";
 
 const SocialSignIn = () => {
   const session = useSession();
   const router = useRouter();
+  const searchParam = useSearchParams();
+
+  const path = searchParam.get("redirect"); // redirect true করে যে path এ user যেতে চেয়েছিল callbackURL এর মাধ্যমে ঐ location এর redirect করে নিয়ে যাবে।
 
   const handleSocialLogin = async (provider) => {
-    const resp = await signIn(provider, { redirect: false }); //no response
+    const resp = await signIn(provider, {
+      redirect: true,
+      callbackUrl: path ? path : "/",
+    }); //no response
     console.log(resp);
   };
 

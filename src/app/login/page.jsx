@@ -2,10 +2,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import SocialSignIn from "@/components/shared/SocialSignIn";
 const Login = () => {
   const router = useRouter(); // for navigate /redirect another page
+  const searchParam = useSearchParams(); // main url এর পরে (?)  query তে যে url path এসেছে সেটা পাওয়ার জন্য
+  const pathname = searchParam.get("redirect");
+
+  console.log(pathname);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -16,7 +20,8 @@ const Login = () => {
     const resp = await signIn("credentials", {
       email,
       password,
-      redirect: false,
+      redirect: true,
+      callbackUrl: pathname ? pathname : "/", // redirect true করে যে path এ user যেতে চেয়েছিল callbackURL এর মাধ্যমে ঐ location এর redirect করে নিয়ে যাবে।
     });
     if (resp.status === 200) {
       router.push("/"); //navigate to home page
