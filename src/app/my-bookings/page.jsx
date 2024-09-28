@@ -1,6 +1,7 @@
 "use client";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -21,7 +22,7 @@ const MyBookings = () => {
   };
   const handleDelete = async (serviceId) => {
     const resp = await fetch(
-      `http://localhost:3000/my-bookings/api/delete-booking/${serviceId}`,
+      `http://localhost:3000/my-bookings/api/booking/${serviceId}`,
       {
         method: "DELETE",
       }
@@ -81,9 +82,11 @@ const MyBookings = () => {
                     <td>{date}</td>
                     <td>
                       <div className="flex flex-wrap gap-3">
-                        <button className="btn btn-warning btn-sm ">
-                          Edit
-                        </button>
+                        <Link href={`/my-bookings/update/${_id}`}>
+                          <button className="btn btn-warning btn-sm ">
+                            Edit
+                          </button>
+                        </Link>
                         <button
                           onClick={() => handleDelete(_id)}
                           className="btn btn-error btn-sm "

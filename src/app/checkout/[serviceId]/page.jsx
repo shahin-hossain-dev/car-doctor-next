@@ -1,7 +1,6 @@
 "use client";
 import { getServiceDetails } from "@/services/getServices";
 import { useSession } from "next-auth/react";
-
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";

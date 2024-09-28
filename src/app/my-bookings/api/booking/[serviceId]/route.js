@@ -26,7 +26,7 @@ export const PATCH = async (request, { params }) => {
   const bookingCollection = await connectBooking();
   const serviceId = await params.serviceId;
 
-  const { date, phone, address } = await request.json();
+  const service = await request.json();
 
   // filter with id
   const filter = { _id: new ObjectId(serviceId) };
@@ -34,9 +34,7 @@ export const PATCH = async (request, { params }) => {
   // updated key-value in mongoDB $set Operator
   const updateDoc = {
     $set: {
-      date,
-      phone,
-      address,
+      ...service,
     },
   };
   // for update or insert option true
